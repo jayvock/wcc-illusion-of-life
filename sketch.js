@@ -6,6 +6,7 @@ var easycam;
 var speed = 2000;
 var seed = 0;
 var c;
+var button;
 
 function setup() { 
   c = createCanvas(windowWidth, windowHeight, WEBGL);
@@ -25,6 +26,11 @@ function setup() {
 
   addGUI();
 } 
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  button.position(c.width/2, c.height-200);
+}
 
 function draw(){
   
@@ -76,10 +82,6 @@ function draw(){
   }
 }
 
-function mouseClicked(){
-  seed = random(0, 512);
-}
-
 function keyPressed() {
   if (keyCode === 83) {
     saveCanvas(c, 'myCanvas', 'jpg');
@@ -88,6 +90,13 @@ function keyPressed() {
 
 function addGUI() {
   // add a button
-  button = createButton('Invert colors');
+  button = createButton('Randomise Seed');
+  button.position(c.width/2, c.height-200);
   button.addClass('button');
+  button.mousePressed(buttonClicked);
+}
+
+function buttonClicked() {
+    seed = random(0, 512);
+    console.log('here');
 }
